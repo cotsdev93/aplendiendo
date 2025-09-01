@@ -49,12 +49,12 @@
 
 <background scale="1" />
 
-<base_filename>Roboto Regular</base_filename>
-<base_filename_mac>Roboto Regular Mac</base_filename_mac>
+<base_filename>RobotoAplendiendo</base_filename>
+<base_filename_mac>RobotoAplendiendoMac</base_filename_mac>
 <export_ttf_font>true</export_ttf_font>
 <export_otf_font>false</export_otf_font>
-<export_eot_font>true</export_eot_font>
-<export_svg_font>true</export_svg_font>
+<export_eot_font>false</export_eot_font>
+<export_svg_font>false</export_svg_font>
 <export_colr_table>false</export_colr_table>
 <export_svg_table>false</export_svg_table>
 <optimize_otf_for_size>false</optimize_otf_for_size>
