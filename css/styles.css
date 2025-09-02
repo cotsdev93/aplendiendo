@@ -9,5 +9,10 @@
 * h1 {
   font-size: 50px;
 }
+* input {
+  -webkit-text-security: none;
+  -webkit-user-select: text;
+  -webkit-touch-callout: none;
+}
 
 /*# sourceMappingURL=styles.css.map */

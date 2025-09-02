@@ -1,13 +1,17 @@
 @font-face {
   font-family: "aplendiendo";
-  src: url("../font/RobotoAplendiendo.ttf") ;
+  src: url("../font/RobotoAplendiendo.ttf");
 }
-
 
 * {
   font-family: "aplendiendo";
   background-color: red;
   h1 {
-    font-size: 50px
+    font-size: 50px;
+  }
+  input {
+    -webkit-text-security: none;
+    -webkit-user-select: text;
+    -webkit-touch-callout: none;
   }
 }
