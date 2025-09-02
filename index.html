@@ -1,20 +1,35 @@
 <!doctype html>
 <meta charset="utf-8">
-<title>Opción 2 · Validar/Normalizar A</title>
+<title>Opción 3 · Teclado propio + Long-press</title>
 <link rel="stylesheet" href="./styles.css">
 <body>
   <main class="wrap">
-    <h1>Opción 2: Validar/Normalizar A</h1>
+    <h1>Opción 3: Teclado propio (mobile) + Long-press (desktop)</h1>
 
-    <form id="form-normaliza" novalidate>
-      <label for="onlyA">Escribí (solo A, Á, Â):</label>
-      <input id="onlyA" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Proba mantener apretada la A">
-      <p class="hint">El SO puede mostrar más, pero este campo normaliza a A, Á o Â.</p>
-      <button type="submit">Enviar</button>
-      <p id="errorA" class="error" aria-live="polite"></p>
-    </form>
+    <section class="card">
+      <h2>Mobile: teclado propio (sin teclado del SO)</h2>
+      <input id="kbdMobile" type="text" readonly inputmode="none" placeholder="Tocá los botones de abajo">
+      <div class="kbd" role="group" aria-label="Teclado de opciones de A">
+        <button class="k" data-ch="A">A</button>
+        <button class="k" data-ch="Á">Á</button>
+        <button class="k" data-ch="Â">Â</button>
+        <button class="k" data-ch=" ">Espacio</button>
+        <button class="k danger" data-action="backspace">⌫</button>
+      </div>
+      <p class="hint">En iOS/Android, mantenemos el input en <code>readonly</code> para no abrir el teclado del sistema.</p>
+    </section>
+
+    <section class="card">
+      <h2>Desktop: long-press “a” → menú con 3 opciones</h2>
+      <input id="kbdDesktop" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Mantené apretada la tecla a">
+      <div id="longPressMenu" class="lp" hidden>
+        <button data-ch="A">A</button>
+        <button data-ch="Á">Á</button>
+        <button data-ch="Â">Â</button>
+      </div>
+      <p class="hint">Tip: también podés elegir con 1, 2 o 3 mientras el menú está abierto.</p>
+    </section>
   </main>
 
   <script src="./app.js"></script>
 </body>
- 
