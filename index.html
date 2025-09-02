@@ -1,34 +1,40 @@
-<!doctype html>
-<meta charset="utf-8">
-<title>Opción 3 · Teclado propio + Long-press</title>
-<link rel="stylesheet" href="./styles.css">
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>Teclado propio con glifos</title>
+<link rel="stylesheet" href="./styles.css" />
 <body>
   <main class="wrap">
-    <h1>Opción 3: Teclado propio (mobile) + Long-press (desktop)</h1>
+    <h1>Teclado propio con glifos (Android + iOS sin teclado del SO)</h1>
 
-    <section class="card">
-      <h2>Mobile: teclado propio (sin teclado del SO)</h2>
-      <input id="kbdMobile" type="text" readonly inputmode="none" placeholder="Tocá los botones de abajo">
-      <div class="kbd" role="group" aria-label="Teclado de opciones de A">
-        <button class="k" data-ch="A">A</button>
-        <button class="k" data-ch="Á">Á</button>
-        <button class="k" data-ch="Â">Â</button>
-        <button class="k" data-ch=" ">Espacio</button>
-        <button class="k danger" data-action="backspace">⌫</button>
-      </div>
-      <p class="hint">En iOS/Android, mantenemos el input en <code>readonly</code> para no abrir el teclado del sistema.</p>
-    </section>
+    <form id="form" action="#" method="post" class="card" autocomplete="off">
+      <label for="display">Texto</label>
 
-    <section class="card">
-      <h2>Desktop: long-press “a” → menú con 3 opciones</h2>
-      <input id="kbdDesktop" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Mantené apretada la tecla a">
-      <div id="longPressMenu" class="lp" hidden>
-        <button data-ch="A">A</button>
-        <button data-ch="Á">Á</button>
-        <button data-ch="Â">Â</button>
+      <div
+        id="display"
+        class="display"
+        tabindex="0"
+        role="textbox"
+        aria-label="Campo de texto"
+      ></div>
+      <input id="valueHidden" name="valor" type="hidden" />
+
+      <div id="kbd" class="kbd"></div>
+
+      <div class="row">
+        <button type="button" id="moveLeft" class="btn">◀</button>
+        <button type="button" id="backspace" class="btn danger">⌫</button>
+        <button type="button" id="clear" class="btn danger">Limpiar</button>
+        <button type="button" id="moveRight" class="btn">▶</button>
+        <button type="button" id="copy" class="btn">Copiar</button>
+        <button type="submit" class="btn primary">Enviar</button>
       </div>
-      <p class="hint">Tip: también podés elegir con 1, 2 o 3 mientras el menú está abierto.</p>
-    </section>
+    </form>
+    <input type="text" />
+    <p class="hint">
+      Tip: reemplazá los glifos en <code>GLYPHS</code> de
+      <code>app.js</code> por los tuyos (incluye los de área de uso privado si
+      tu fuente los usa).
+    </p>
   </main>
 
   <script src="./app.js"></script>

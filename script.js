@@ -1,83 +1,113 @@
-// Opción 3
-(() => {
-    // Mobile: teclado propio (input readonly)
-    const mInput = document.getElementById('kbdMobile');
-    document.querySelectorAll('.kbd .k').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const action = btn.dataset.action;
-        if (action === 'backspace') {
-          const v = mInput.value;
-          mInput.value = v.slice(0, -1);
-          return;
-        }
-        const ch = btn.dataset.ch || ' ';
-        const { selectionStart: s, selectionEnd: e } = mInput;
-        const v = mInput.value;
-        mInput.value = v.slice(0, s) + ch + v.slice(e);
-        const pos = s + ch.length;
-        mInput.selectionStart = mInput.selectionEnd = pos;
-        mInput.focus();
-      });
-    });
-  
-    // Desktop: long-press en "a"
-    const dInput = document.getElementById('kbdDesktop');
-    const menu = document.getElementById('longPressMenu');
-  
-    let pressTimer = null;
-    let menuOpen = false;
-  
-    function openMenu() {
-      const rect = dInput.getBoundingClientRect();
-      menu.style.left = `${rect.left}px`;
-      menu.style.top = `${rect.bottom + 8 + window.scrollY}px`;
-      menu.hidden = false;
-      menuOpen = true;
+// Configurá acá los glifos que querés permitir
+const GLYPHS = ['A', 'Á', 'Â', 'a', 'á', 'â', ' ', '.', ','];
+
+// Si tu fuente usa PUA (privado), podés usar códigos como '\uE001', '\uE002', etc.
+// Ejemplo: const GLYPHS = ['\uE001', '\uE002', '\uE003'];
+
+const display = document.getElementById('display');
+const hidden = document.getElementById('valueHidden');
+const kbd = document.getElementById('kbd');
+
+const btnBack = document.getElementById('backspace');
+const btnClear = document.getElementById('clear');
+const btnLeft = document.getElementById('moveLeft');
+const btnRight = document.getElementById('moveRight');
+const btnCopy = document.getElementById('copy');
+const form = document.getElementById('form');
+
+let buffer = '';
+let caret = 0;
+
+function renderKeyboard() {
+  kbd.innerHTML = '';
+  GLYPHS.forEach(g => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'key';
+    b.textContent = g;
+    b.dataset.ch = g;
+    b.addEventListener('click', () => insert(g));
+    kbd.appendChild(b);
+  });
+}
+
+function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
+
+function insert(txt) {
+  const start = caret;
+  const left = buffer.slice(0, start);
+  const right = buffer.slice(start);
+  buffer = left + txt + right;
+  caret = start + txt.length;
+  update();
+}
+
+function backspace() {
+  if (caret === 0) return;
+  buffer = buffer.slice(0, caret - 1) + buffer.slice(caret);
+  caret -= 1;
+  update();
+}
+
+function moveLeft() { caret = clamp(caret - 1, 0, buffer.length); update(); }
+function moveRight() { caret = clamp(caret + 1, 0, buffer.length); update(); }
+function clearAll() { buffer = ''; caret = 0; update(); }
+
+function update() {
+  hidden.value = buffer;
+
+  const frag = document.createDocumentFragment();
+  const chars = [...buffer];
+  for (let i = 0; i < chars.length; i++) {
+    if (i === caret) {
+      const c = document.createElement('span');
+      c.className = 'caret';
+      frag.appendChild(c);
     }
-    function closeMenu() { menu.hidden = true; menuOpen = false; }
-  
-    function insertAtCaret(el, text) {
-      const { selectionStart: s, selectionEnd: e } = el;
-      const v = el.value;
-      el.value = v.slice(0, s) + text + v.slice(e);
-      const pos = s + text.length;
-      el.selectionStart = el.selectionEnd = pos;
-      el.focus();
-    }
-  
-    dInput.addEventListener('keydown', (e) => {
-      if (e.key.toLowerCase() === 'a') {
-        if (pressTimer) clearTimeout(pressTimer);
-        pressTimer = setTimeout(() => {
-          openMenu();
-        }, 320);
-      }
-      if (menuOpen && ['1','2','3','Escape'].includes(e.key)) {
-        e.preventDefault();
-        if (e.key === 'Escape') { closeMenu(); return; }
-        const idx = Number(e.key) - 1;
-        const btn = menu.querySelectorAll('button')[idx];
-        if (btn) {
-          insertAtCaret(dInput, btn.dataset.ch);
-          closeMenu();
-        }
-      }
-    });
-  
-    dInput.addEventListener('keyup', (e) => {
-      if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; }
-      if (menuOpen && e.key.toLowerCase() === 'a') e.preventDefault();
-    });
-  
-    document.addEventListener('click', (e) => {
-      if (menuOpen && !menu.contains(e.target) && e.target !== dInput) closeMenu();
-    });
-  
-    menu.querySelectorAll('button').forEach((b) => {
-      b.addEventListener('click', () => {
-        insertAtCaret(dInput, b.dataset.ch);
-        closeMenu();
-      });
-    });
-  })();
-  
+    const s = document.createElement('span');
+    s.className = 'ch';
+    s.textContent = chars[i];
+    frag.appendChild(s);
+  }
+  if (caret === chars.length) {
+    const c = document.createElement('span');
+    c.className = 'caret';
+    frag.appendChild(c);
+  }
+  display.replaceChildren(frag);
+}
+
+function clickToCaret(ev) {
+  const x = ev.clientX;
+  const spans = Array.from(display.querySelectorAll('.ch'));
+  let i = 0;
+  for (; i < spans.length; i++) {
+    const r = spans[i].getBoundingClientRect();
+    if (x < r.left + r.width / 2) break;
+  }
+  caret = i;
+  update();
+}
+
+display.addEventListener('mousedown', (e) => {
+  e.preventDefault();
+  clickToCaret(e);
+});
+
+btnBack.addEventListener('click', backspace);
+btnClear.addEventListener('click', clearAll);
+btnLeft.addEventListener('click', moveLeft);
+btnRight.addEventListener('click', moveRight);
+
+btnCopy.addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(buffer); } catch {}
+});
+
+form.addEventListener('submit', (e) => {
+  // Simulación: mostrás el valor y evitás navegación. En producción sacá el preventDefault.
+  e.preventDefault();
+  alert('Enviado: ' + hidden.value);
+});
+
+renderKeyboard();
+update();
