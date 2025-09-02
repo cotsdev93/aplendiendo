@@ -1,50 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/styles.css" />
-  </head>
-  <body>
-    <h1>AAAA</h1>
-    <input type="text" />
-    <input
-      type="text"
-      id="miInput"
-      autocapitalize="off"
-      autocomplete="off"
-      spellcheck="false"
-    />
-    <input type="text" id="miInput" />
+<!doctype html>
+<meta charset="utf-8">
+<title>Opción 2 · Validar/Normalizar A</title>
+<link rel="stylesheet" href="./styles.css">
+<body>
+  <main class="wrap">
+    <h1>Opción 2: Validar/Normalizar A</h1>
 
-    <div
-      id="menuA"
-      style="
-        display: none;
-        position: absolute;
-        border: 1px solid #ccc;
-        background: #fff;
-        padding: 5px;
-      "
-    >
-      <span class="opcion">Ā</span>
-      <span class="opcion">Á</span>
-      <span class="opcion">À</span>
-    </div>
+    <form id="form-normaliza" novalidate>
+      <label for="onlyA">Escribí (solo A, Á, Â):</label>
+      <input id="onlyA" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Proba mantener apretada la A">
+      <p class="hint">El SO puede mostrar más, pero este campo normaliza a A, Á o Â.</p>
+      <button type="submit">Enviar</button>
+      <p id="errorA" class="error" aria-live="polite"></p>
+    </form>
+  </main>
 
-    <label for="onlyA">Escribí aquí (solo A, Á, Â):</label>
-    <input
-      id="onlyA"
-      type="text"
-      autocomplete="off"
-      autocorrect="off"
-      autocapitalize="off"
-      spellcheck="false"
-    />
-    <p class="hint">
-      El menú del sistema puede mostrar más, pero el campo solo deja A, Á o Â.
-    </p>
-  </body>
-  <script src="./script.js"></script>
-</html>
+  <script src="./app.js"></script>
+</body>
+ 

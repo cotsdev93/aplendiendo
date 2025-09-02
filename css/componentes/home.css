@@ -4,33 +4,71 @@
 }
 * {
   font-family: "aplendiendo";
-  background-color: red;
 }
-* h1 {
-  font-size: 50px;
+
+* {
+  box-sizing: border-box;
 }
-* input {
-  -webkit-text-security: none;
-  -webkit-user-select: text;
-  -webkit-touch-callout: none;
+
+body {
+  margin: 0;
+  background: #0b0c10;
+  color: #eaf2f8;
+  font: 16px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
-* body {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+
+.wrap {
+  max-width: 720px;
+  margin: 40px auto;
   padding: 24px;
 }
-* label {
+
+h1 {
+  font-size: 22px;
+  margin: 0 0 16px;
+}
+
+label {
   display: block;
-  margin-bottom: 8px;
+  margin: 12px 0 6px;
 }
-* input {
-  font-size: 20px;
-  padding: 10px 12px;
-  width: 360px;
+
+input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(234, 242, 248, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: #eaf2f8;
+  font-size: 18px;
 }
-* .hint {
-  margin-top: 8px;
+
+input:focus {
+  outline: 0;
+  border-color: #5ac8fa;
+  box-shadow: 0 0 0 4px rgba(90, 200, 250, 0.15);
+}
+
+.hint {
+  margin: 8px 0 12px;
+  color: rgba(234, 242, 248, 0.6);
   font-size: 13px;
-  opacity: 0.75;
+}
+
+button {
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: #5ac8fa;
+  color: #001018;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.error {
+  color: #ff6b6b;
+  min-height: 20px;
+  margin-top: 8px;
 }
 
 /*# sourceMappingURL=home.css.map */

@@ -5,31 +5,22 @@
 
 * {
   font-family: "aplendiendo";
-  background-color: red;
-  h1 {
-    font-size: 50px;
-  }
-  input {
-    -webkit-text-security: none;
-    -webkit-user-select: text;
-    -webkit-touch-callout: none;
-  }
-  body {
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-    padding: 24px;
-  }
-  label {
-    display: block;
-    margin-bottom: 8px;
-  }
-  input {
-    font-size: 20px;
-    padding: 10px 12px;
-    width: 360px;
-  }
-  .hint {
-    margin-top: 8px;
-    font-size: 13px;
-    opacity: 0.75;
-  }
 }
+
+
+$bg: #0b0c10;
+$fg: #eaf2f8;
+$muted: rgba($fg, .6);
+$accent: #5ac8fa;
+$error: #ff6b6b;
+
+* { box-sizing: border-box; }
+body { margin: 0; background: $bg; color: $fg; font: 16px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+.wrap { max-width: 720px; margin: 40px auto; padding: 24px; }
+h1 { font-size: 22px; margin: 0 0 16px; }
+label { display: block; margin: 12px 0 6px; }
+input { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba($fg,.15); background: rgba(#fff,.06); color: $fg; font-size: 18px; }
+input:focus { outline: 0; border-color: $accent; box-shadow: 0 0 0 4px rgba($accent,.15); }
+.hint { margin: 8px 0 12px; color: $muted; font-size: 13px; }
+button { padding: 10px 14px; border: 0; border-radius: 12px; background: $accent; color: #001018; font-weight: 600; cursor: pointer; }
+.error { color: $error; min-height: 20px; margin-top: 8px; }
